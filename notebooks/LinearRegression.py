@@ -25,8 +25,7 @@ class LinearRegression:
     return self.weights * X + self.bias
 
 def format_input(a):
-  ret = np.array(a)
-  return np.expand_dims(ret, 1)
+  return np.expand_dims(np.array(a), 1)
 
 if __name__ == "__main__":
   X_train = [1, 2, 3, 5, 6, 7, 8]
