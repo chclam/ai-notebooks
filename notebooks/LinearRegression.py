@@ -1,6 +1,8 @@
-import numpy as np
 import random
+import pandas as pd
+import numpy as np
 from tqdm import trange
+from sklearn.model_selection import train_test_split 
 
 class LinearRegression:
   def __init__(self, lr):
@@ -17,7 +19,7 @@ class LinearRegression:
       p = self.predict(X)
       loss = np.mean((p - y) ** 2)
       t.set_description(f"Loss: {loss}, Progress")
-      self.weights -= self.lr * (np.sum(X * (2 * (p - y))) / len(X))
+      self.weights -= self.lr * (np.sum(X * (2 * (p - y)), axis=0) / len(X))
       self.bias -= self.lr * np.mean(2 * (p - y))
 
   def predict(self, X):
