@@ -17,7 +17,7 @@ class LinearRegression:
       p = self.predict(X)
       loss = np.mean((p - y) ** 2)
       t.set_description(f"Loss: {loss}, Progress")
-      self.weights -= self.lr * np.mean(X * (2 * (p - y)))
+      self.weights -= self.lr * (np.sum(X * (2 * (p - y))) / len(X))
       self.bias -= self.lr * np.mean(2 * (p - y))
 
   def predict(self, X):
