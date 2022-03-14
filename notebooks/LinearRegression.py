@@ -21,21 +21,30 @@ class LinearRegression:
       self.bias -= self.lr * np.mean(2 * (p - y))
 
   def predict(self, X):
-    return self.weights * X + self.bias
+    return np.expand_dims(np.dot(self.weights, X.T) + self.bias, 1)
 
 def format_input(a):
-  return np.expand_dims(np.array(a), 1)
+  ret = np.array(a)
+  if len(ret.shape) == 1:
+    ret = np.expand_dims(ret, 1)
+  assert(len(ret.shape) == 2)
+  return ret
 
 if __name__ == "__main__":
-  X_train = [1, 2, 3, 5, 6, 7, 8]
+  X_train_1 = [1, 2, 3, 4, 5, 6, 7]
+  X_train_2 = [[1, 2], [2, 2], [3, 3], [6, 5], [6, 6], [7, 7], [9, 8]]
+  X_test_1 = [1, 8, 15, 120]
+  X_test_2 = [[8, 9], [10, 7], [1, 3]]
   y_train = [10, 20, 30, 50, 60, 70, 80]
-  X_test = [1, 8, 15, 120]
 
-  X_train = format_input(X_train)
+  X_train_1 = format_input(X_train_1)
+  X_train_2 = format_input(X_train_2)
+  X_test_1 = format_input(X_test_1)
+  X_test_2 = format_input(X_test_2)
   y_train = format_input(y_train)
-  X_test = format_input(X_test)
 
   model = LinearRegression(lr=0.01)
-  model.fit(X_train, y_train)
-  print(model.predict(X_test))
-  
+  model.fit(X_train_1, y_train)
+  print(model.predict(X_test_1))
+  model.fit(X_train_2, y_train)
+  print(model.predict(X_test_2))
