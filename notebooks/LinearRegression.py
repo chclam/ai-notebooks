@@ -10,7 +10,7 @@ class LinearRegression:
 
   def fit(self, X, y, N=1000):
     if len(X) != len(y):
-      raise Exception("Inputs X and y not the same length.")
+      raise ValueError("Inputs X and y not the same length.")
     self.weights = np.random.rand(X.shape[1])
     self.bias = random.random()
     for _ in (t := trange(N)):
